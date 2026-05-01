@@ -1,0 +1,13 @@
+{
+  "name": "NHR Digital Agency",
+  "description": "Ultra-modern and professional web agency showcase featuring NexaCore design, multi-language support, and AI chatbot.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "AI Chatbot",
+    "Multi-language",
+    "Dynamic Pricing",
+    "Dark/Light Mode"
+  ]
+}
