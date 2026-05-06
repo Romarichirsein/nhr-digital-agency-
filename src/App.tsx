@@ -135,7 +135,8 @@ function AppContent() {
           <div className="flex flex-wrap justify-center gap-10 mb-16 text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-widest">
             <Link to="/" className="hover:text-nhr-blue transition-colors">{t('nav.home')}</Link>
             <Link to="/services" className="hover:text-nhr-blue transition-colors">{t('nav.expertise')}</Link>
-            <Link to="/portfolio" className="hover:text-nhr-blue transition-colors">{t('nav.portfolio')}</Link>
+            <Link to="/portfolio" className="hover:text-nhr-blue transition-colors">Portfolio</Link>
+            <Link to="/portfolio#realisations" className="hover:text-nhr-blue transition-colors">Réalisations</Link>
             <Link to="/pricing" className="hover:text-nhr-blue transition-colors">{t('nav.pricing')}</Link>
             <Link to="/devis" className="hover:text-nhr-blue transition-colors">{t('nav.quote')}</Link>
           </div>

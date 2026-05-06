@@ -31,7 +31,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const navLinks = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.services'), href: '/services' },
-    { name: t('nav.portfolio'), href: '/portfolio' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Réalisations', href: '/portfolio#realisations' },
     { name: t('nav.pricing'), href: '/pricing' },
     { name: 'Devis', href: '/devis' },
   ];

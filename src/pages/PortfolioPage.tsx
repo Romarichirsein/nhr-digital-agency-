@@ -1,4 +1,5 @@
-import Portfolio from '../components/Portfolio';
+import FounderPortfolio from '../components/FounderPortfolio';
+import Realisations from '../components/Realisations';
 import { motion } from 'motion/react';
 
 export default function PortfolioPage() {
@@ -8,9 +9,10 @@ export default function PortfolioPage() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.02 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="pt-24 min-h-screen"
+      className="pt-0 min-h-screen"
     >
-      <Portfolio />
+      <FounderPortfolio />
+      <Realisations />
     </motion.div>
   );
 }
