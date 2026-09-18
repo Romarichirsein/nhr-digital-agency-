@@ -16,7 +16,7 @@ import QuotePage from './pages/QuotePage';
 import ContactForm from './components/ContactForm';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { Mail, MapPin, ChevronRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import logoDark from '@/src/assets/logo-dark.png';
 import logoLight from '@/src/assets/logo-light.png';
@@ -110,9 +110,48 @@ function AppContent() {
             
             <div className="relative mb-12">
               <h2 className="text-4xl sm:text-6xl font-display font-extrabold mb-6 tracking-tighter">{t('contact.title')}</h2>
-              <p className="text-[var(--text-secondary)] max-w-xl mx-auto text-lg leading-relaxed">
+              <p className="text-[var(--text-secondary)] max-w-xl mx-auto text-lg leading-relaxed mb-8">
                 {t('contact.subtitle')}
               </p>
+
+              {/* Coordonnées directes du Fondateur Nguemi Hirsein Romaric */}
+              <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-left mb-8">
+                <a 
+                  href="tel:+237692738430" 
+                  className="p-4 rounded-2xl glass border border-nhr-blue/20 hover:border-nhr-blue/50 transition-all flex items-center gap-3 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-nhr-blue/10 text-nhr-blue flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Phone size={18} />
+                  </div>
+                  <div className="overflow-hidden">
+                    <div className="text-[10px] font-mono text-gray-400 uppercase">Téléphone</div>
+                    <div className="text-xs font-bold text-white truncate">+237 692 73 84 30</div>
+                  </div>
+                </a>
+
+                <a 
+                  href="mailto:romarichirsein@gmail.com" 
+                  className="p-4 rounded-2xl glass border border-nhr-blue/20 hover:border-nhr-blue/50 transition-all flex items-center gap-3 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-nhr-blue/10 text-nhr-blue flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Mail size={18} />
+                  </div>
+                  <div className="overflow-hidden">
+                    <div className="text-[10px] font-mono text-gray-400 uppercase">Email Direct</div>
+                    <div className="text-xs font-bold text-white truncate">romarichirsein@gmail.com</div>
+                  </div>
+                </a>
+
+                <div className="p-4 rounded-2xl glass border border-nhr-blue/20 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-nhr-blue/10 text-nhr-blue flex items-center justify-center flex-shrink-0">
+                    <MapPin size={18} />
+                  </div>
+                  <div className="overflow-hidden">
+                    <div className="text-[10px] font-mono text-gray-400 uppercase">Localisation</div>
+                    <div className="text-xs font-bold text-white truncate">Awae concorde, Yaoundé</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <ContactForm />

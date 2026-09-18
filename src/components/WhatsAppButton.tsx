@@ -16,7 +16,7 @@ export default function WhatsAppButton() {
 
       {/* Pulsing Button */}
       <a
-        href="https://wa.me/237699999999" // Replace with real number
+        href="https://wa.me/237692738430?text=Bonjour%20Romaric,%20j'ai%20consult%C3%A9%20votre%20portfolio%20NHR%20Digital..." 
         target="_blank"
         rel="noopener noreferrer"
         className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl transition-transform hover:scale-110 active:scale-95"
