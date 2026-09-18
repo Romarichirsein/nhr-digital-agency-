@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Globe, ShoppingBag, Smartphone, Layout } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const CATEGORIES = ['Tous', 'Web', 'E-commerce', 'App'];
 
@@ -160,7 +161,16 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 };
 
 export default function Realisations() {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const [activeFilter, setActiveFilter] = useState('Tous');
+
+  const categories = [
+    { id: 'Tous', label: isEn ? 'All' : 'Tous', icon: CATEGORY_ICONS['Tous'] },
+    { id: 'Web', label: 'Web', icon: CATEGORY_ICONS['Web'] },
+    { id: 'E-commerce', label: 'E-commerce', icon: CATEGORY_ICONS['E-commerce'] },
+    { id: 'App', label: 'App', icon: CATEGORY_ICONS['App'] },
+  ];
 
   const filtered = activeFilter === 'Tous'
     ? PROJECTS
@@ -187,19 +197,20 @@ export default function Realisations() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-xs font-mono font-bold tracking-widest text-nhr-blue uppercase mb-4 block"
+            className="text-xs font-mono font-bold tracking-widest text-nhr-blue uppercase mb-4 block animate-text-glow"
           >
-            Projets Réalisés
+            {isEn ? 'Featured Works & Deployments' : 'Projets Réalisés & Déployés'}
           </motion.span>
           <h2 className="text-5xl sm:text-6xl font-display font-extrabold mb-6 leading-tight">
-            Nos{' '}
+            {isEn ? 'Our ' : 'Nos '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-nhr-blue via-nhr-blue-electric to-nhr-indigo">
-              Réalisations
+              {isEn ? 'Accomplishments' : 'Réalisations'}
             </span>
           </h2>
           <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-lg leading-relaxed">
-            Une sélection de nos projets les plus marquants — chaque réalisation est une preuve
-            de notre engagement envers l'excellence digitale.
+            {isEn
+              ? 'A curated selection of our most impactful platforms — each project reflects our uncompromising commitment to digital excellence.'
+              : 'Une sélection de nos projets les plus marquants — chaque réalisation est une preuve concrète de notre engagement envers l\'excellence digitale.'}
           </p>
         </motion.div>
 
@@ -210,36 +221,36 @@ export default function Realisations() {
           viewport={{ once: true }}
           className="flex flex-wrap items-center justify-center gap-2 mb-16"
         >
-          <div className="flex flex-wrap items-center justify-center gap-2 p-2 rounded-2xl glass">
-            {CATEGORIES.map((cat) => (
+          <div className="flex flex-wrap items-center justify-center gap-2 p-2 rounded-2xl glass border border-nhr-blue/20 shadow-glow-blue">
+            {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
+                key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
                 className={`relative flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors ${
-                  activeFilter === cat
+                  activeFilter === cat.id
                     ? 'text-white'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                {activeFilter === cat && (
+                {activeFilter === cat.id && (
                   <motion.div
                     layoutId="activeRealisationFilter"
-                    className="absolute inset-0 bg-nhr-blue rounded-xl -z-10"
+                    className="absolute inset-0 bg-nhr-blue rounded-xl -z-10 shadow-glow-blue"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                {CATEGORY_ICONS[cat]}
-                {cat}
+                {cat.icon}
+                {cat.label}
               </button>
             ))}
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid avec animations de déplacement */}
         <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode="popLayout" initial={false}>
             {filtered.map((project, idx) => (
-              <ProjectCard key={project.title} project={project} idx={idx} />
+              <ProjectCard key={project.title} project={project} idx={idx} isEn={isEn} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -255,7 +266,7 @@ export default function Realisations() {
             href="/devis"
             className="inline-flex items-center gap-3 px-10 py-5 bg-nhr-blue-dark rounded-2xl font-bold text-white text-base shadow-glow-blue hover:bg-nhr-blue transition-all hover:scale-105 active:scale-95"
           >
-            Démarrer un projet similaire <ExternalLink size={18} />
+            {isEn ? 'Start a Similar Project' : 'Démarrer un projet similaire'} <ExternalLink size={18} />
           </a>
         </motion.div>
       </div>
@@ -263,7 +274,7 @@ export default function Realisations() {
   );
 }
 
-function ProjectCard({ project, idx }: { project: typeof PROJECTS[0]; idx: number }) {
+function ProjectCard({ project, idx, isEn }: { project: typeof PROJECTS[0]; idx: number; isEn: boolean }) {
   return (
     <motion.div
       layout
@@ -340,11 +351,11 @@ function ProjectCard({ project, idx }: { project: typeof PROJECTS[0]; idx: numbe
               rel="noopener noreferrer"
               className="w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest border border-[var(--glass-border)] text-[var(--text-secondary)] hover:border-nhr-blue/50 hover:text-nhr-blue-electric hover:bg-nhr-blue/5 transition-all flex items-center justify-center gap-2"
             >
-              Visiter le site <ExternalLink size={12} />
+              {isEn ? 'Visit Website' : 'Visiter le site'} <ExternalLink size={12} />
             </a>
           ) : (
             <div className="w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest border border-[var(--glass-border)] text-[var(--text-secondary)]/40">
-              Bientôt disponible
+              {isEn ? 'Coming Soon' : 'Bientôt disponible'}
             </div>
           )}
         </div>
