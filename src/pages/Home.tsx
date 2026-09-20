@@ -1,12 +1,15 @@
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import Portfolio from '../components/Portfolio';
+import FounderPortfolio from '../components/FounderPortfolio';
+import Realisations from '../components/Realisations';
 import Pricing from '../components/Pricing';
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
+import { Award, Briefcase, Code2, GraduationCap } from 'lucide-react';
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
 
   return (
     <motion.div
@@ -17,7 +20,8 @@ export default function Home() {
     >
       <Hero />
       
-      <section className="py-24 border-y border-white/5 relative z-10 bg-slate-900/40 backdrop-blur-sm">
+      {/* Statistiques synchronisées avec la Licence Pro 2025 et le 6e National BTS */}
+      <section className="py-20 border-y border-nhr-blue/20 relative z-10 bg-slate-950/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div 
             variants={{
@@ -30,13 +34,13 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-12"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {[
-              { val: "150+", label: t('stats.projects') },
-              { val: "120+", label: t('stats.clients') },
-              { val: "15+", label: t('stats.countries') },
-              { val: "5+", label: t('stats.years') },
+              { val: "2025", label: isEn ? "BSc in Software Engineering" : "Licence Pro Génie Logiciel", sub: isEn ? "Graduated in 2025 (ISESTM)" : "Diplômé en 2025 (ISESTM)", icon: <GraduationCap size={24} />, color: "#06b6d4" },
+              { val: "6ème", label: isEn ? "6th National Rank HND" : "6e National BTS Génie Logiciel", sub: isEn ? "Cameroon National Honors" : "Mention Spéciale 🇨🇲", icon: <Award size={24} />, color: "#60a5fa" },
+              { val: "25+", label: isEn ? "Real-World Projects" : "Projets Réalisés & Déployés", sub: isEn ? "National & International" : "Web, Mobile & E-commerce", icon: <Briefcase size={24} />, color: "#3b82f6" },
+              { val: "6", label: isEn ? "Proprietary SaaS Software" : "Logiciels SaaS Déployés", sub: isEn ? "E-learning, Gym, School, Finance" : "E-learning, Sport, Scolaire, Finance", icon: <Code2 size={24} />, color: "#a855f7" },
             ].map((stat, i) => (
               <motion.div 
                 key={i} 
@@ -44,13 +48,25 @@ export default function Home() {
                   hidden: { opacity: 0, y: 30 },
                   show: { opacity: 1, y: 0 }
                 }}
-                className="text-center group p-8 rounded-3xl glass border-white/5 shadow-glow-indigo transition-transform hover:scale-105"
+                whileHover={{ y: -6, scale: 1.03 }}
+                className="neon-card-wrapper"
               >
-                <div className="text-4xl md:text-5xl font-display font-extrabold text-gradient mb-3">
-                  {stat.val}
-                </div>
-                <div className="text-[10px] font-mono font-bold tracking-[0.3em] text-nhr-slate-400 uppercase">
-                  {stat.label}
+                <div className="neon-card-content p-6 text-center flex flex-col items-center justify-center gap-2">
+                  <div style={{ color: stat.color, filter: `drop-shadow(0 0 10px ${stat.color})` }}>
+                    {stat.icon}
+                  </div>
+                  <div 
+                    className="text-3xl sm:text-4xl font-display font-extrabold"
+                    style={{ color: stat.color, textShadow: `0 0 20px ${stat.color}80` }}
+                  >
+                    {stat.val}
+                  </div>
+                  <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                  <div className="text-[10px] font-mono text-[var(--text-secondary)]">
+                    {stat.sub}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -58,8 +74,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services & Nouvelles Expertises Digitales & IA */}
       <Services />
-      <Portfolio />
+
+      {/* Portfolio du Fondateur Romaric synchronisé (Photo réelle, 2025 Licence Pro, Allemand B1, Outils IA & Chaînes YouTube) */}
+      <div id="founder">
+        <FounderPortfolio />
+      </div>
+
+      {/* Réalisations & Déploiements SaaS synchronisés (avec toutes les images réelles) */}
+      <Realisations />
+
+      {/* Tarifs & Packs */}
       <Pricing />
     </motion.div>
   );

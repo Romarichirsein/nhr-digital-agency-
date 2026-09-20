@@ -68,13 +68,19 @@ export default function Hero() {
           transition={{ delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
         >
-          <button className="px-8 py-4 bg-nhr-blue-dark rounded-2xl font-bold text-lg hover:bg-nhr-blue transition-all shadow-glow-blue active:scale-95">
+          <a 
+            href="/devis" 
+            className="px-8 py-4 bg-nhr-blue-dark rounded-2xl font-bold text-lg hover:bg-nhr-blue transition-all shadow-glow-blue active:scale-95 text-white"
+          >
             {t('hero.cta')}
-          </button>
+          </a>
           
-          <button className="px-8 py-4 glass rounded-2xl font-bold text-lg hover:bg-white/10 transition-colors">
+          <a 
+            href="#realisations" 
+            className="px-8 py-4 glass rounded-2xl font-bold text-lg hover:bg-white/10 transition-colors text-white border border-white/10"
+          >
             {t('nav.portfolio')}
-          </button>
+          </a>
         </motion.div>
       </div>
 
