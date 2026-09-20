@@ -4,32 +4,92 @@ import { useTranslation } from 'react-i18next';
 import { 
   Mail, MapPin, Award, Briefcase, Code2, ChevronDown, Download, Phone,
   GraduationCap, Calendar, Sparkles, CheckCircle2, Globe, Heart,
-  BookOpen, Music, Plane, PenTool, Utensils, Laptop, MessageSquare, Layers
+  BookOpen, Music, Plane, PenTool, Utensils, Laptop, MessageSquare, Layers,
+  Youtube, Video, ExternalLink, Share2, Bot, Cpu
 } from 'lucide-react';
 import romaricPhoto from '@/src/assets/romaric.jpg';
 
-// Tech stack avec logos officiels SVG et maîtrise 100%
+// Tech stack avec pourcentages précis demandés par l'utilisateur
 const TECHS = [
   { name: 'WordPress',      category_fr: 'CMS & E-commerce', category_en: 'CMS & E-commerce', logo: 'https://cdn.simpleicons.org/wordpress/21759B', level: 100, color: '#21759B', desc_fr: 'Sites vitrines, e-commerces, blogs, portfolios & refontes', desc_en: 'Corporate websites, e-commerce, blogs, portfolios & redesigns' },
-  { name: 'HTML5',          category_fr: 'Markup Standard', category_en: 'Markup Standard', logo: 'https://cdn.simpleicons.org/html5/E34F26',    level: 100, color: '#E34F26', desc_fr: 'Structure sémantique, accessibilité & standards web', desc_en: 'Semantic structure, accessibility & web standards' },
-  { name: 'CSS3',           category_fr: 'Styles & FX', category_en: 'Styles & FX', logo: 'https://cdn.simpleicons.org/css3/1572B6',     level: 100, color: '#1572B6', desc_fr: 'Tailwind CSS, Glassmorphism, animations néon', desc_en: 'Tailwind CSS, Glassmorphism, dynamic neon animations' },
-  { name: 'JavaScript',     category_fr: 'Langage Web', category_en: 'Web Language', logo: 'https://cdn.simpleicons.org/javascript/F7DF1E',level: 100, color: '#F7DF1E', desc_fr: 'ES6+, DOM dynamique, logique client & APIs', desc_en: 'ES6+, dynamic DOM, client-side logic & APIs' },
-  { name: 'Next.js',        category_fr: 'Framework React', category_en: 'React Framework', logo: 'https://cdn.simpleicons.org/nextdotjs/ffffff', level: 100, color: '#ffffff', desc_fr: 'SSR, SSG, App Router, performances maximales', desc_en: 'SSR, SSG, App Router, maximal web performance' },
-  { name: 'React',          category_fr: 'UI Library', category_en: 'UI Library', logo: 'https://cdn.simpleicons.org/react/61DAFB',    level: 100, color: '#61DAFB', desc_fr: 'Composants interactifs, Hooks, Framer Motion', desc_en: 'Interactive components, Hooks, Framer Motion' },
-  { name: 'Flutter',        category_fr: 'Mobile Cross-Platform', category_en: 'Cross-Platform Mobile', logo: 'https://cdn.simpleicons.org/flutter/02569B', level: 100, color: '#02569B', desc_fr: 'Apps mobiles iOS & Android fluides & natives', desc_en: 'Fast, smooth native iOS & Android mobile applications' },
+  { name: 'HTML5 / CSS3',   category_fr: 'Markup & Styles', category_en: 'Markup & Styles', logo: 'https://cdn.simpleicons.org/html5/E34F26',    level: 100, color: '#E34F26', desc_fr: 'Structure sémantique, Tailwind CSS, Glassmorphism, néons', desc_en: 'Semantic structure, Tailwind CSS, Glassmorphism, neons' },
   { name: 'UI/UX Design',   category_fr: 'Conception d\'Interfaces', category_en: 'Interface Design', logo: 'https://cdn.simpleicons.org/figma/F24E1E', level: 100, color: '#F24E1E', desc_fr: 'Maquettage Figma, ergonomie utilisateur & prototypes', desc_en: 'Figma wireframing, user-centric ergonomics & prototypes' },
+  { name: 'JavaScript',     category_fr: 'Langage Web', category_en: 'Web Language', logo: 'https://cdn.simpleicons.org/javascript/F7DF1E',level: 60, color: '#F7DF1E', desc_fr: 'ES6+, DOM dynamique, logique client & APIs', desc_en: 'ES6+, dynamic DOM, client-side logic & APIs' },
+  { name: 'React',          category_fr: 'UI Library', category_en: 'UI Library', logo: 'https://cdn.simpleicons.org/react/61DAFB',    level: 60, color: '#61DAFB', desc_fr: 'Composants interactifs, Hooks, Framer Motion', desc_en: 'Interactive components, Hooks, Framer Motion' },
+  { name: 'Next.js',        category_fr: 'Framework React', category_en: 'React Framework', logo: 'https://cdn.simpleicons.org/nextdotjs/ffffff', level: 50, color: '#ffffff', desc_fr: 'SSR, SSG, App Router, performances maximales', desc_en: 'SSR, SSG, App Router, maximal web performance' },
+  { name: 'Flutter',        category_fr: 'Mobile Cross-Platform', category_en: 'Cross-Platform Mobile', logo: 'https://cdn.simpleicons.org/flutter/02569B', level: 50, color: '#02569B', desc_fr: 'Apps mobiles iOS & Android fluides & natives', desc_en: 'Fast, smooth native iOS & Android mobile applications' },
+  { name: 'GitHub',         category_fr: 'Contrôle de Version', category_en: 'Version Control', logo: 'https://cdn.simpleicons.org/github/ffffff', level: 50, color: '#94a3b8', desc_fr: 'Gestion de code, CI/CD, collaboration open-source', desc_en: 'Code management, CI/CD pipelines & collaboration' },
+  { name: 'Vercel',         category_fr: 'Déploiement Cloud', category_en: 'Cloud Deployment', logo: 'https://cdn.simpleicons.org/vercel/ffffff', level: 50, color: '#60a5fa', desc_fr: 'Déploiements ultra-rapides, edge functions & SSL', desc_en: 'Instant edge deployments, serverless functions & SSL' },
 ];
 
-// Compétences transversales bilingues
-const OTHER_SKILLS = [
-  { title_fr: 'Gestion de projet & d’équipes', title_en: 'Project & Team Management', desc_fr: 'Direction technique, encadrement de développeurs et pilotage de livrables', desc_en: 'Technical leadership, developer mentorship and project delivery', icon: <Briefcase size={20} />, color: '#3b82f6' },
-  { title_fr: 'Référencement d\'entreprises (SEO)', title_en: 'Business SEO & Visibility', desc_fr: 'Optimisation Google Maps, référencement local & visibilité numérique', desc_en: 'Google Maps optimization, local SEO & digital company visibility', icon: <Globe size={20} />, color: '#60a5fa' },
-  { title_fr: 'Conception Graphique (Photoshop & Canva)', title_en: 'Graphic Design (Photoshop & Canva)', desc_fr: 'Création de logos, affiches promotionnelles, chartes et visuels percutants', desc_en: 'Creation of logos, promotional posters, brand identities & visuals', icon: <PenTool size={20} />, color: '#ec4899' },
-  { title_fr: 'Community Management', title_en: 'Community Management & Socials', desc_fr: 'Stratégie sur les réseaux sociaux, création de contenu et newsletters', desc_en: 'Social media growth strategy, engaging content creation & newsletters', icon: <MessageSquare size={20} />, color: '#8b5cf6' },
-  { title_fr: 'Commerce & Outils bureautiques', title_en: 'Business & Office Productivity', desc_fr: 'Gestion commerciale, e-commerce, pack bureautique et modélisation', desc_en: 'Commercial operations, e-commerce management & office productivity', icon: <Layers size={20} />, color: '#10b981' },
+// Outils d'Intelligence Artificielle & Plateformes demandés
+const AI_TOOLS = [
+  { name: 'Google AI Studio', category: 'LLM & Prototypage', level: 89, color: '#4285F4', icon: '🤖' },
+  { name: 'Antigravity',      category: 'Agentic Coding & DeepMind', level: 85, color: '#6366f1', icon: '⚡' },
+  { name: 'ChatGPT (OpenAI)', category: 'Prompting & Automation', level: 80, color: '#10a37f', icon: '🧠' },
+  { name: 'Claude (Anthropic)', category: 'Deep Reasoning & Code', level: 70, color: '#d97706', icon: '✨' },
+  { name: 'Perplexity AI',    category: 'Recherche & Fact-Checking', level: 70, color: '#20b2aa', icon: '🔍' },
+  { name: 'Google Stitch',    category: 'Design & Code Workflows', level: 70, color: '#ea4335', icon: '🧵' },
+  { name: 'Google Flow',      category: 'Pipeline & Automatisation', level: 70, color: '#34a853', icon: '🌊' },
+  { name: 'Facebook Ads & IA',category: 'Marketing & Acquisition', level: 70, color: '#1877f2', icon: '📢' },
+  { name: 'TikTok Ads & Growth', category: 'Viral Video & Marketing', level: 70, color: '#ff0050', icon: '🎵' },
 ];
 
-// Formations réelles extraites du CV + NOUVELLE LICENCE PRO 2025
+// Réseaux sociaux et chaînes du Fondateur
+const SOCIAL_CHANNELS = [
+  {
+    name: 'NHR DIGITAL AGENCY',
+    platform: 'YouTube',
+    desc_fr: 'Chaîne de tutoriels sur le digital, l\'intelligence artificielle et l\'entrepreneuriat digital.',
+    desc_en: 'YouTube channel dedicated to digital tutorials, AI tools and digital entrepreneurship.',
+    link: 'https://www.youtube.com/channel/UCl0SgOq2lnxUg_Z2uKHy9Ng',
+    icon: <Youtube size={24} className="text-red-500" />,
+    color: '#ef4444',
+    badge: 'Tutoriels & IA'
+  },
+  {
+    name: 'CARNAGE PRODUCTION',
+    platform: 'YouTube',
+    desc_fr: 'Chaîne officielle pour la réalisation et diffusion de mes différents films et courts métrages.',
+    desc_en: 'Official channel for the production and broadcasting of cinematic films and short movies.',
+    link: 'https://www.youtube.com/@Carnage_production',
+    icon: <Video size={24} className="text-red-400" />,
+    color: '#dc2626',
+    badge: 'Cinéma & Films IA'
+  },
+  {
+    name: '@mbokojobs',
+    platform: 'TikTok',
+    desc_fr: 'Contenus dynamiques sur les opportunités professionnelles, emplois et conseils de carrière.',
+    desc_en: 'Dynamic short-form content on career opportunities, hiring tips and digital skills.',
+    link: 'https://www.tiktok.com/@mbokojobs',
+    icon: <Share2 size={24} className="text-cyan-400" />,
+    color: '#06b6d4',
+    badge: 'Carrière & Emploi'
+  },
+  {
+    name: 'Dr Romaric Hirsein',
+    platform: 'Facebook',
+    desc_fr: 'Page officielle de tutoriels technologiques, astuces digitales et partages professionnels.',
+    desc_en: 'Official page for tech tutorials, digital insights and professional development.',
+    link: 'https://web.facebook.com/profile.php?id=61592524810840',
+    icon: <Globe size={24} className="text-blue-500" />,
+    color: '#3b82f6',
+    badge: 'Tutoriels & Tech'
+  },
+  {
+    name: 'Carnage Production',
+    platform: 'Facebook',
+    desc_fr: 'Page dédiée aux actualités cinématographiques, coulisses de tournage et projets de films.',
+    desc_en: 'Page dedicated to cinema news, behind-the-scenes and film production projects.',
+    link: 'https://web.facebook.com/profile.php?id=61590917223952',
+    icon: <Film size={24} className="text-indigo-400" />,
+    color: '#6366f1',
+    badge: 'Page Films'
+  }
+];
+
+// Formations réelles du CV + NOUVELLE LICENCE PRO 2025
 const FORMATIONS = [
   {
     diplome_fr: 'Licence Professionnelle en Génie Logiciel',
@@ -111,7 +171,7 @@ const FORMATIONS = [
   },
 ];
 
-// Expériences professionnelles bilingues
+// Expériences professionnelles
 const EXPERIENCES = [
   {
     role_fr: 'Chargé de Communication sur les réseaux sociaux & Création / Gestion des sites webs',
@@ -155,35 +215,41 @@ const EXPERIENCES = [
     current: true,
     tasks_fr: [
       'Création et direction générale de l\'agence digitale NHR Digital Agency au Cameroun.',
-      'Conception, développement et livraison de plus de 16 plateformes web, e-commerce et applications mobiles pour des entreprises et institutions.',
-      'Management d\'équipe, gestion de projet agile, relation client et stratégie technologique.',
+      'Conception, développement et livraison de plus de 24 plateformes web, e-commerce et applications SaaS innovantes.',
+      'Management d\'équipe, gestion de projet agile, relation client et intégration IA.',
     ],
     tasks_en: [
       'Founding and technical leadership of NHR Digital Agency in Cameroon.',
-      'Design, architecture and delivery of over 16 web, e-commerce and mobile platforms for companies and NGOs.',
-      'Agile team management, client partnerships and high-standard engineering.',
+      'Design, architecture and delivery of over 24 web, e-commerce and SaaS platforms.',
+      'Agile team management, client partnerships and cutting-edge AI integration.',
     ],
   },
 ];
 
-// Langues
+// Langues avec ajout de l'Allemand niveau B1 demandé
 const LANGUAGES = [
   { name_fr: 'Français', name_en: 'French', level_fr: 'Langue maternelle', level_en: 'Native language', percent: 100, flag: '🇨🇲' },
   { name_fr: 'Anglais', name_en: 'English', level_fr: 'Niveau moyen / professionnel', level_en: 'Professional working proficiency', percent: 80, flag: '🇬🇧' },
+  { name_fr: 'Allemand', name_en: 'German', level_fr: 'Niveau B1 (Intermédiaire supérieur)', level_en: 'B1 Level (Upper Intermediate)', percent: 70, flag: '🇩🇪' },
   { name_fr: 'Espagnol', name_en: 'Spanish', level_fr: 'Notions (Série BEPC)', level_en: 'Basic conversational', percent: 45, flag: '🇪🇸' },
 ];
 
 // Centres d'intérêt
 const INTERESTS = [
-  { label_fr: 'Développer les sites', label_en: 'Web & App Development', icon: <Laptop size={22} />, color: '#3b82f6' },
+  { label_fr: 'Développer les sites & SaaS', label_en: 'Web & SaaS Development', icon: <Laptop size={22} />, color: '#3b82f6' },
+  { label_fr: 'Réalisation de films IA', label_en: 'AI Film Production', icon: <Video size={22} />, color: '#ef4444' },
   { label_fr: 'Écrire les chroniques', label_en: 'Writing Chronicles', icon: <BookOpen size={22} />, color: '#60a5fa' },
   { label_fr: 'Lecture & Veille tech', label_en: 'Reading & Tech Watch', icon: <GraduationCap size={22} />, color: '#6366f1' },
-  { label_fr: 'Musique', label_en: 'Music & Production', icon: <Music size={22} />, color: '#a855f7' },
+  { label_fr: 'Création de Musique', label_en: 'Music & Production', icon: <Music size={22} />, color: '#a855f7' },
   { label_fr: 'Voyages', label_en: 'Travel & Exploration', icon: <Plane size={22} />, color: '#06b6d4' },
   { label_fr: 'Cuisine', label_en: 'Culinary Arts', icon: <Utensils size={22} />, color: '#f59e0b' },
 ];
 
-/* Particules d'arrière-plan avec mouvement dynamique ascendant et scintillement */
+function Film(props: { size?: number; className?: string }) {
+  return <Video {...props} />;
+}
+
+/* Particules d'arrière-plan */
 function Particles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -217,7 +283,7 @@ function Particles() {
   );
 }
 
-/* Orbe magnétique qui suit avec fluidité la souris */
+/* Orbe magnétique qui suit la souris */
 function MagneticOrb() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -246,7 +312,7 @@ function MagneticOrb() {
   );
 }
 
-/* Formes géométriques flottantes avec mouvement orbital et 3D */
+/* Formes géométriques 3D */
 function FloatingShapes() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -314,17 +380,15 @@ export default function FounderPortfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
   
-  // Parallaxe multi-couches
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
   const bgTranslate = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
-  // Statistiques dynamiques intégrant la Licence Pro 2025 et le 6e National BTS
   const STATS = [
     { value: '2025', label: isEn ? 'BSc in Software Engineering' : 'Licence Pro Génie Logiciel', sub: isEn ? 'Graduated in 2025' : 'Diplômé en 2025', icon: <GraduationCap size={24} />, color: '#06b6d4' },
     { value: '6ème', label: isEn ? '6th National Rank HND' : '6e National BTS Génie Logiciel', sub: isEn ? 'Excellence & Honors' : 'Avec Mention', icon: <Award size={24} />, color: '#60a5fa' },
-    { value: '100%', label: isEn ? 'Web, Mobile & UI/UX Mastery' : 'Maîtrise Web, Mobile & UI/UX', sub: isEn ? 'Wordpress, Next, Flutter' : 'Wordpress, Next, Flutter', icon: <Code2 size={24} />, color: '#3b82f6' },
-    { value: '16+', label: isEn ? 'Major Projects Delivered' : '16+ Projets d\'Envergure Livrés', sub: isEn ? 'Proven Track Record' : 'Afrique & International', icon: <Briefcase size={24} />, color: '#6366f1' },
+    { value: '100%', label: isEn ? 'Web, Mobile & UI/UX Mastery' : 'Maîtrise Web, Mobile & UI/UX', sub: isEn ? 'WordPress, Next, Flutter' : 'WordPress, Next, Flutter', icon: <Code2 size={24} />, color: '#3b82f6' },
+    { value: '24+', label: isEn ? 'Websites & SaaS Platforms' : 'Sites Web & SaaS Livrés', sub: isEn ? 'Proven Track Record' : 'Afrique & International', icon: <Briefcase size={24} />, color: '#6366f1' },
   ];
 
   return (
@@ -394,7 +458,7 @@ export default function FounderPortfolio() {
             }} 
           />
 
-          {/* Conteneur de l'image de Romaric avec effet de lévitation interactive */}
+          {/* Conteneur de l'image de Romaric */}
           <motion.div 
             whileHover={{ scale: 1.06, rotate: [0, -1, 1, 0] }}
             transition={{ duration: 0.4 }}
@@ -406,11 +470,10 @@ export default function FounderPortfolio() {
               alt="NGUEMI HIRSEIN ROMARIC" 
               className="w-full h-full object-cover object-top scale-105 group-hover:scale-110 transition-transform duration-500"
             />
-            {/* Dégradé bas de photo */}
             <div className="absolute inset-0 bg-gradient-to-t from-nhr-black/50 via-transparent to-transparent pointer-events-none" />
           </motion.div>
 
-          {/* Badge Flottant 1 : "Licence Pro 2025" (Haut Gauche) */}
+          {/* Badge Flottant 1 : "Licence Pro 2025" */}
           <motion.div
             animate={{ y: [-4, 4, -4] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -421,7 +484,7 @@ export default function FounderPortfolio() {
             <span>{isEn ? 'BSc 2025' : 'Licence Pro 2025'}</span>
           </motion.div>
 
-          {/* Badge Flottant 2 : "6e National BTS" (Bas Droite) */}
+          {/* Badge Flottant 2 : "6e National BTS" */}
           <motion.div
             animate={{ y: [4, -4, 4] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
@@ -464,7 +527,7 @@ export default function FounderPortfolio() {
         >
           <span className="px-3.5 py-1.5 rounded-full text-xs font-medium border border-cyan-400/30 bg-cyan-950/20 text-cyan-300 flex items-center gap-1.5 shadow-sm">
             <GraduationCap size={13} className="text-cyan-400" />
-            {isEn ? 'Licence Pro Génie Logiciel (2025)' : 'Licence Pro Génie Logiciel (2025)'}
+            {isEn ? 'BSc in Software Engineering (2025)' : 'Licence Pro Génie Logiciel (2025)'}
           </span>
           <span className="px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 glass text-[var(--text-secondary)] flex items-center gap-1.5">
             <Calendar size={13} className="text-nhr-blue" />
@@ -515,7 +578,6 @@ export default function FounderPortfolio() {
           transition={{ delay: 0.6 }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          {/* Télécharger CV PDF */}
           <motion.a
             href="/CV_Romaric_Hirsein.pdf"
             download="CV_Romaric_Hirsein.pdf"
@@ -532,7 +594,6 @@ export default function FounderPortfolio() {
             <Download size={18} /> {t('founder.download_cv')}
           </motion.a>
 
-          {/* WhatsApp Direct */}
           <motion.a
             href="https://wa.me/237692738430?text=Bonjour%20Romaric,%20j'ai%20consult%C3%A9%20votre%20portfolio%20NHR%20Digital..."
             target="_blank"
@@ -544,7 +605,6 @@ export default function FounderPortfolio() {
             <Phone size={18} /> {t('founder.whatsapp')}
           </motion.a>
 
-          {/* Email Direct */}
           <motion.a
             href="mailto:romarichirsein@gmail.com"
             whileHover={{ scale: 1.05, borderColor: 'rgba(96,165,250,0.8)', boxShadow: '0 0 25px rgba(59,130,246,0.3)' }}
@@ -567,7 +627,7 @@ export default function FounderPortfolio() {
       </motion.div>
 
       {/* =========================================================================
-          STATS & DISTINCTIONS — Glass Cards avec Néon rotatif et Déplacement au Scroll
+          STATS & DISTINCTIONS — Glass Cards
           ========================================================================= */}
       <div className="relative z-10 py-16 px-6 border-y border-nhr-blue/20 bg-gradient-to-r from-transparent via-nhr-blue/5 to-transparent">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -604,7 +664,7 @@ export default function FounderPortfolio() {
       </div>
 
       {/* =========================================================================
-          TECHNOLOGIES MAÎTRISÉES (100% pour toutes selon la demande)
+          TECHNOLOGIES MAÎTRISÉES (Avec pourcentages précis demandés)
           ========================================================================= */}
       <div className="relative z-10 py-24 px-6">
         <div className="max-w-7xl mx-auto">
@@ -618,33 +678,30 @@ export default function FounderPortfolio() {
               {t('founder.tech_badge')}
             </span>
             <h2 className="text-4xl sm:text-5xl font-display font-extrabold mb-4">
-              {t('founder.tech_title')}
+              Technologies & <span className="text-gradient-animated">Langages</span>
             </h2>
             <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-base">
-              {t('founder.tech_desc')}
+              {isEn 
+                ? 'Precise mastery of web & mobile technologies, source control and cloud deployments.'
+                : 'Maîtrise rigoureuse des technologies web, mobile, versioning et déploiement cloud.'}
             </p>
           </motion.div>
 
-          {/* Grille des 8 technologies principales avec logos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {TECHS.map((tech, i) => (
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, scale: 0.8 }} 
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }} 
-                transition={{ delay: i * 0.08, type: 'spring', bounce: 0.3 }}
-                whileHover={{ y: -8, scale: 1.04 }}
+                transition={{ delay: i * 0.06, type: 'spring', bounce: 0.3 }}
+                whileHover={{ y: -8, scale: 1.03 }}
                 className="neon-card-wrapper group cursor-pointer"
               >
                 <div className="neon-card-content flex flex-col justify-between p-7 h-full">
                   <div>
-                    {/* Header carte tech */}
                     <div className="flex items-center justify-between mb-4">
-                      <motion.div 
-                        whileHover={{ rotate: [0, -10, 10, 0], scale: 1.15 }}
-                        className="relative"
-                      >
+                      <div className="relative">
                         <div 
                           className="absolute inset-0 rounded-full blur-xl opacity-40 group-hover:opacity-100 transition-opacity"
                           style={{ backgroundColor: tech.color }} 
@@ -655,7 +712,7 @@ export default function FounderPortfolio() {
                           className="w-12 h-12 object-contain relative z-10 drop-shadow-lg"
                           style={{ filter: `drop-shadow(0 0 10px ${tech.color}90)` }}
                         />
-                      </motion.div>
+                      </div>
                       <span 
                         className="text-lg font-mono font-extrabold px-3 py-1 rounded-xl border"
                         style={{ 
@@ -680,14 +737,13 @@ export default function FounderPortfolio() {
                     </p>
                   </div>
 
-                  {/* Jauge de progression 100% avec shimmer */}
                   <div>
                     <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-[1px]">
                       <motion.div
                         initial={{ width: 0 }} 
                         whileInView={{ width: `${tech.level}%` }}
                         viewport={{ once: true }} 
-                        transition={{ duration: 1.2, delay: i * 0.08 + 0.3 }}
+                        transition={{ duration: 1.2, delay: i * 0.06 + 0.2 }}
                         className="h-full rounded-full"
                         style={{ 
                           background: `linear-gradient(to right, ${tech.color}80, ${tech.color})`,
@@ -697,7 +753,7 @@ export default function FounderPortfolio() {
                     </div>
                     <div className="flex justify-between text-[10px] font-mono mt-1.5 text-gray-400">
                       <span>{isEn ? 'Proficiency' : 'Niveau'}</span>
-                      <span className="text-white font-bold">{isEn ? 'Expert (100%)' : 'Expert (100%)'}</span>
+                      <span className="text-white font-bold">{tech.level}%</span>
                     </div>
                   </div>
                 </div>
@@ -705,34 +761,133 @@ export default function FounderPortfolio() {
             ))}
           </div>
 
-          {/* Autres compétences du CV */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {OTHER_SKILLS.map((sk, idx) => (
+          {/* SECTION SPÉCIALE IA & OUTILS AVANCÉS */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-3 block animate-text-glow flex items-center justify-center gap-2">
+              <Bot size={16} /> {isEn ? 'Artificial Intelligence & Modern Workflows' : 'Outils d\'Intelligence Artificielle & Marketing'}
+            </span>
+            <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-white mb-3">
+              Expertise <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-nhr-blue to-indigo-400">IA Générative & Growth</span>
+            </h3>
+            <p className="text-[var(--text-secondary)] max-w-xl mx-auto text-sm">
+              {isEn 
+                ? 'Advanced proficiency in cutting-edge LLMs, agentic AI frameworks and automated acquisition channels.'
+                : 'Maîtrise avancée des modèles d\'IA de pointe, des frameworks d\'agents et des leviers d\'acquisition publicitaire.'}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5">
+            {AI_TOOLS.map((ai, idx) => (
               <motion.div
-                key={sk.title_fr}
+                key={ai.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -4, scale: 1.02 }}
+                transition={{ delay: idx * 0.05 }}
+                whileHover={{ scale: 1.03, y: -4 }}
                 className="neon-card-wrapper"
               >
-                <div className="neon-card-content p-6 flex items-start gap-4">
-                  <div 
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ 
-                      backgroundColor: `${sk.color}15`, 
-                      border: `1px solid ${sk.color}40`,
-                      color: sk.color,
-                      boxShadow: `0 0 15px ${sk.color}30` 
-                    }}
-                  >
-                    {sk.icon}
-                  </div>
+                <div className="neon-card-content p-5 flex flex-col justify-between h-full">
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1.5">{isEn ? sk.title_en : sk.title_fr}</h3>
-                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{isEn ? sk.desc_en : sk.desc_fr}</p>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl">{ai.icon}</span>
+                      <span 
+                        className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg border"
+                        style={{ color: ai.color, borderColor: `${ai.color}40`, backgroundColor: `${ai.color}15` }}
+                      >
+                        {ai.level}%
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-white mb-1">{ai.name}</h4>
+                    <p className="text-[11px] font-mono text-gray-400 mb-4">{ai.category}</p>
                   </div>
+                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${ai.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1 }}
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: ai.color, boxShadow: `0 0 10px ${ai.color}` }}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          CHAÎNES YOUTUBE & RÉSEAUX SOCIAUX DU FONDATEUR
+          ========================================================================= */}
+      <div className="relative z-10 py-24 px-6 bg-gradient-to-b from-transparent via-red-950/10 to-transparent border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="text-xs font-mono font-bold tracking-widest text-red-400 uppercase mb-3 block animate-text-glow flex items-center justify-center gap-2">
+              <Youtube size={16} /> {isEn ? 'Official Media Channels' : 'Canaux Média & Réseaux Officiels'}
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-display font-extrabold mb-4 text-white">
+              Chaînes YouTube & <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-indigo-400">Réseaux Sociaux</span>
+            </h2>
+            <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-base">
+              {isEn
+                ? 'Follow my specialized tutorials on tech & AI, discover my film productions and engage with my digital community.'
+                : 'Suivez mes tutoriels sur le digital & l\'IA, découvrez mes productions cinématographiques et rejoignez ma communauté.'}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SOCIAL_CHANNELS.map((item, i) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="neon-card-wrapper"
+              >
+                <div className="neon-card-content p-7 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-3 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
+                        {item.icon}
+                      </div>
+                      <span 
+                        className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border"
+                        style={{ color: item.color, borderColor: `${item.color}40`, backgroundColor: `${item.color}15` }}
+                      >
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    <div className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">{item.platform}</div>
+                    <h3 className="text-xl font-bold text-white mb-2">{item.name}</h3>
+                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6">
+                      {isEn ? item.desc_en : item.desc_fr}
+                    </p>
+                  </div>
+
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 rounded-xl glass border border-white/10 hover:border-red-500/50 hover:bg-red-500/10 text-xs font-bold uppercase tracking-widest text-white transition-all flex items-center justify-center gap-2"
+                  >
+                    <span>{isEn ? 'Visit Channel' : 'Rejoindre / S\'abonner'}</span>
+                    <ExternalLink size={13} />
+                  </a>
                 </div>
               </motion.div>
             ))}
@@ -793,7 +948,7 @@ export default function FounderPortfolio() {
                         </span>
                         {f.highlight && (
                           <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 animate-pulse">
-                            {isEn ? 'Major Milestone' : 'Étape Majeure'}
+                            {isEn ? 'Major Milestone' : 'Diplôme Clé'}
                           </span>
                         )}
                       </div>
@@ -838,7 +993,6 @@ export default function FounderPortfolio() {
           </motion.div>
 
           <div className="relative">
-            {/* Ligne verticale de la timeline */}
             <div 
               className="absolute left-4 sm:left-8 top-4 bottom-4 w-1 hidden sm:block rounded-full"
               style={{ 
@@ -858,7 +1012,6 @@ export default function FounderPortfolio() {
                   whileHover={{ x: 6 }}
                   className="relative sm:pl-20"
                 >
-                  {/* Point lumineux sur la timeline */}
                   <div 
                     className="absolute left-5 top-8 w-7 h-7 rounded-full hidden sm:flex items-center justify-center border-2 border-nhr-blue bg-[#020617] z-20"
                     style={{ boxShadow: '0 0 20px #3b82f6' }}
@@ -908,7 +1061,7 @@ export default function FounderPortfolio() {
       </div>
 
       {/* =========================================================================
-          LANGUES & CENTRES D'INTÉRÊT (Bilingues)
+          LANGUES & CENTRES D'INTÉRÊT (Allemand B1 inclus)
           ========================================================================= */}
       <div className="relative z-10 py-24 px-6 border-t border-nhr-blue/15">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -961,8 +1114,8 @@ export default function FounderPortfolio() {
 
               <p className="text-xs text-[var(--text-secondary)] mt-8 pt-4 border-t border-white/5">
                 {isEn 
-                  ? 'Fluent capacity to lead cross-cultural teams and deliver projects in both French and English worldwide.' 
-                  : 'Capacité avérée à collaborer avec des équipes et clients nationaux et internationaux en français et anglais.'}
+                  ? 'Fluent capacity to lead cross-cultural teams and communicate with clients in French, English, German and Spanish.' 
+                  : 'Capacité avérée à échanger et collaborer avec des équipes et partenaires en français, anglais, allemand et espagnol.'}
               </p>
             </div>
           </motion.div>
@@ -1008,7 +1161,7 @@ export default function FounderPortfolio() {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-[var(--text-secondary)]">
-                <span>{isEn ? 'Innovation · Creativity · Versatility' : 'Écriture · Créativité · Polyvalence'}</span>
+                <span>{isEn ? 'Innovation · Cinema & AI · Passion' : 'Innovation · Cinéma & IA · Passion'}</span>
                 <span className="text-nhr-blue-electric font-mono font-bold">NHR Agency</span>
               </div>
             </div>

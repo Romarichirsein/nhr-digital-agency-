@@ -16,7 +16,7 @@ import QuotePage from './pages/QuotePage';
 import ContactForm from './components/ContactForm';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { Mail, MapPin, Phone, ChevronRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ChevronRight, Youtube, Video, Share2, Globe } from 'lucide-react';
 import { useState } from 'react';
 import logoDark from '@/src/assets/logo-dark.png';
 import logoLight from '@/src/assets/logo-light.png';
@@ -171,13 +171,62 @@ function AppContent() {
             <span className="font-display font-bold text-2xl tracking-tight uppercase text-[var(--text-primary)]">NHR <span className="text-nhr-blue-electric">.</span></span>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-10 mb-16 text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-widest">
+          <div className="flex flex-wrap justify-center gap-10 mb-10 text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-widest">
             <Link to="/" className="hover:text-nhr-blue transition-colors">{t('nav.home')}</Link>
             <Link to="/services" className="hover:text-nhr-blue transition-colors">{t('nav.expertise')}</Link>
             <Link to="/portfolio" className="hover:text-nhr-blue transition-colors">Portfolio</Link>
-            <Link to="/portfolio#realisations" className="hover:text-nhr-blue transition-colors">Réalisations</Link>
+            <Link to="/portfolio#realisations" className="hover:text-nhr-blue transition-colors">Réalisations & SaaS</Link>
             <Link to="/pricing" className="hover:text-nhr-blue transition-colors">{t('nav.pricing')}</Link>
             <Link to="/devis" className="hover:text-nhr-blue transition-colors">{t('nav.quote')}</Link>
+          </div>
+
+          {/* Réseaux Sociaux & YouTube du Fondateur */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            <a 
+              href="https://www.youtube.com/channel/UCl0SgOq2lnxUg_Z2uKHy9Ng" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-red-500/30 text-white hover:border-red-500 hover:bg-red-500/10 text-xs transition-all"
+            >
+              <Youtube size={15} className="text-red-500" />
+              <span>YouTube NHR Digital</span>
+            </a>
+            <a 
+              href="https://www.youtube.com/@Carnage_production" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-red-500/30 text-white hover:border-red-500 hover:bg-red-500/10 text-xs transition-all"
+            >
+              <Video size={15} className="text-red-400" />
+              <span>Carnage Production</span>
+            </a>
+            <a 
+              href="https://www.tiktok.com/@mbokojobs" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-cyan-400/30 text-white hover:border-cyan-400 hover:bg-cyan-400/10 text-xs transition-all"
+            >
+              <Share2 size={15} className="text-cyan-400" />
+              <span>TikTok @mbokojobs</span>
+            </a>
+            <a 
+              href="https://web.facebook.com/profile.php?id=61592524810840" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-blue-500/30 text-white hover:border-blue-500 hover:bg-blue-500/10 text-xs transition-all"
+            >
+              <Globe size={15} className="text-blue-500" />
+              <span>Dr Romaric Hirsein</span>
+            </a>
+            <a 
+              href="https://web.facebook.com/profile.php?id=61590917223952" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-indigo-500/30 text-white hover:border-indigo-500 hover:bg-indigo-500/10 text-xs transition-all"
+            >
+              <Globe size={15} className="text-indigo-400" />
+              <span>Films Carnage</span>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-10 text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-widest opacity-60">

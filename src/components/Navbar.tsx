@@ -32,7 +32,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     { name: t('nav.home'), href: '/' },
     { name: t('nav.services'), href: '/services' },
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Réalisations', href: '/portfolio#realisations' },
+    { name: 'Réalisations & SaaS', href: '/portfolio#realisations' },
     { name: t('nav.pricing'), href: '/pricing' },
     { name: 'Devis', href: '/devis' },
   ];
