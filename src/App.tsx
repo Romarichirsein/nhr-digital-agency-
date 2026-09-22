@@ -4,23 +4,23 @@
  */
 
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ChatBot from './components/ChatBot';
 import WhatsAppButton from './components/WhatsAppButton';
-import Home from './pages/Home';
-import ServicesPage from './pages/ServicesPage';
-import PortfolioPage from './pages/PortfolioPage';
-import PricingPage from './pages/PricingPage';
-import QuotePage from './pages/QuotePage';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import ContactForm from './components/ContactForm';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Mail, MapPin, Phone, ChevronRight, Youtube, Video, Share2, Globe } from 'lucide-react';
-import { useState } from 'react';
 import Preloader from './components/Preloader';
 import logoDark from '@/src/assets/logo-dark.png';
 import logoLight from '@/src/assets/logo-light.png';
+
+const Home = lazy(() => import('./pages/Home'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const PricingPage = lazy(() => import('./pages/PricingPage'));
+const QuotePage = lazy(() => import('./pages/QuotePage'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -93,15 +93,17 @@ function AppContent() {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="relative z-10">
-        <AnimatePresence mode="wait">
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/devis" element={<QuotePage />} />
-          </Routes>
-        </AnimatePresence>
+        <Suspense fallback={<div className="min-h-screen bg-nhr-black" />}>
+          <AnimatePresence mode="wait">
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/devis" element={<QuotePage />} />
+            </Routes>
+          </AnimatePresence>
+        </Suspense>
 
         {/* Contact Form Section */}
         <motion.section 

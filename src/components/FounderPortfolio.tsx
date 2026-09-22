@@ -7,7 +7,7 @@ import {
   BookOpen, Music, Plane, PenTool, Utensils, Laptop, MessageSquare, Layers,
   Youtube, Video, ExternalLink, Share2, Bot, Cpu
 } from 'lucide-react';
-import romaricPhoto from '@/src/assets/romaric.jpg';
+import romaricPhoto from '@/src/assets/romaric.jpeg';
 
 // Tech stack avec pourcentages précis demandés par l'utilisateur
 const TECHS = [
