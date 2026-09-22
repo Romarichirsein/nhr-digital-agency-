@@ -18,6 +18,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Mail, MapPin, Phone, ChevronRight, Youtube, Video, Share2, Globe } from 'lucide-react';
 import { useState } from 'react';
+import Preloader from './components/Preloader';
 import logoDark from '@/src/assets/logo-dark.png';
 import logoLight from '@/src/assets/logo-light.png';
 
@@ -43,6 +44,7 @@ function AppContent() {
   const location = useLocation();
   const { scrollY } = useScroll();
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
@@ -61,6 +63,11 @@ function AppContent() {
 
   return (
     <div className="relative bg-nhr-black text-[var(--text-primary)] selection:bg-nhr-blue/30 overflow-hidden min-h-screen">
+      {/* 5-Second Launch Preloader with Romaric Photo & Circular Loader */}
+      <AnimatePresence>
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
       {/* Scroll Progress Bar */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-nhr-blue z-[1000] origin-left"

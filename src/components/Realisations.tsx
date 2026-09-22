@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Globe, ShoppingBag, Smartphone, Layout, Cloud, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -492,7 +492,7 @@ export default function Realisations() {
   );
 }
 
-function ProjectCard({ project, idx, isEn }: { project: ProjectItem; idx: number; isEn: boolean }) {
+function ProjectCard({ project, idx, isEn }: { project: ProjectItem; idx: number; isEn: boolean; key?: React.Key }) {
   return (
     <motion.div
       layout

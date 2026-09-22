@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { 
   Globe, ShoppingBag, Layers, BarChart, Smartphone, Search, 
